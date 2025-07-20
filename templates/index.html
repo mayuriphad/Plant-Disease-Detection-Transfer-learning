@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Plant Disease Predictor</title>
+    <!-- Google Fonts: Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            background: linear-gradient(135deg, #e0eafc, #cfdef3);
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 450px;
+            margin: 60px auto;
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+            padding: 36px 32px 32px 32px;
+            text-align: center;
+        }
+
+        h1 {
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 28px;
+            letter-spacing: 1px;
+        }
+
+        label {
+            font-weight: 500;
+            color: #4a5568;
+            margin-bottom: 8px;
+            display: block;
+            text-align: left;
+        }
+
+        select,
+        input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0 18px 0;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-family: 'Poppins', Arial, sans-serif;
+            font-size: 1rem;
+        }
+
+        button {
+            background: #14213f;
+            color: #fff;
+            border: none;
+            padding: 12px 0;
+            width: 100%;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background: #012e4c;
+        }
+
+        .result {
+            margin-top: 32px;
+            padding: 18px;
+            background: #f0f9ff;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(56, 182, 255, 0.08);
+        }
+
+        .result h2 {
+            color: #0f222e;
+            font-weight: 600;
+            margin-bottom: 14px;
+        }
+
+        .result img {
+            max-width: 220px;
+            border-radius: 8px;
+            margin-top: 8px;
+            box-shadow: 0 2px 8px rgba(56, 182, 255, 0.08);
+        }
+    </style>
+    <script>
+        function updateFormAction() {
+            var model = document.getElementById('model').value;
+            var form = document.getElementById('predictForm');
+            if (model === 'EfficientNetB0') {
+                form.action = '/model2';
+            } else if (model === 'ResNet50') {
+                form.action = '/model3';
+            } else {
+                form.action = '/';
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Plant Disease Prediction</h1>
+
+        <form id="predictForm" method="POST" enctype="multipart/form-data" action="/">
+            <label for="model">Choose Model:</label>
+            <select name="model" id="model" onchange="updateFormAction()">
+                <option value="MobileNetV2">MobileNetV2</option>
+                <option value="EfficientNetB0">EfficientNetB0</option>
+                <option value="ResNet50">ResNet50</option>
+            </select>
+            <input type="file" name="image" required>
+            <button type="submit">Predict</button>
+        </form>
+
+        {% if prediction %}
+        <div class="result">
+            <h2>Prediction: {{ prediction }}</h2>
+            {% if confidence is defined %}
+            <p style="font-size:1.1em; color:#14213f;">Confidence: {{ '%.2f' % confidence }}%</p>
+            {% endif %}
+            <img src="{{ img_path }}" alt="Uploaded Image">
+        </div>
+        {% endif %}
+    </div>
+    {% if popup_msg %}
+    <script>
+        alert("{{ popup_msg }}");
+    </script>
+    {% endif %}
+</body>
+
+</html>

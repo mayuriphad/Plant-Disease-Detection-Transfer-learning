@@ -1,0 +1,22 @@
+
+# Uploaded files
+uploads/
+
+# Environment variables
+.env
+.env/
+
+# Model files
+*.h5
+
+
+model/
+
+
+
+
+venv/   
+
+
+
+
