@@ -15,6 +15,13 @@ This project implements plant disease detection using state-of-the-art deep lear
 - Comprehensive model evaluation with multiple metrics
 - Two-stage training approach: feature extraction and fine-tuning
 
+
+## Screenshots
+![Web Application Screenshot](screenshots/mainpage.png)
+![Model Selection Screenshot](screenshots/ChoosingModels.png)
+![Prediction Result Screenshot](screenshots/DiseaseDetection.png)
+
+
 ## Model Architecture
 
 ### Implemented Models
@@ -27,6 +34,10 @@ This project implements plant disease detection using state-of-the-art deep lear
 - **Stage 2**: Fine-tuning with trainable top layers
 - **Data Augmentation**: Rotation, zoom, horizontal flip, brightness adjustment
 - **Loss Functions**: Categorical crossentropy and focal loss evaluation
+
+
+## Analysis
+![Data Analysis](screenshots/datasetanalysis.png)
 
 
 ### Setup
@@ -105,6 +116,7 @@ The Flask application provides three routes for model selection and prediction:
 - F1-score for balanced performance assessment
 - Confusion matrix analysis
 - Comparative analysis across all three models
+![Evaluation table](screenshots/EvaluationMatrix.png)
 
 
 
